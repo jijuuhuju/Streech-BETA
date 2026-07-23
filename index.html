@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Streech8</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+<!-- 1. 【起動時 ＆ 保存時】四角がピョンピョン跳ねるロード画面 -->
+<div id="loadingScreen">
+    <div class="loading-box"></div>
+    <div class="loading-text" id="loadingText">streech v8 を起動中...</div>
+</div>
+
+<!-- 2. 【最初の選択画面】白紙かテンプレートかを選ぶ -->
+<div id="modeSelectScreen">
+    <div class="modal-box">
+        <h2>streech へようこそ！</h2>
+        <p>プロジェクトの開始方法を選んでね</p>
+        <button class="menuBtn-select modeBtn" onclick="selectStartMode('blank')">📄 白紙から新しく作る</button>
+        <button class="menuBtn-select modeBtn" onclick="selectStartMode('temp')">📂 テンプレートから選ぶ</button>
+    </div>
+</div>
+
+<!-- 3. アプリ本体画面 -->
+<div id="streechContainer">
+    <!-- 左側：パレットエリア（グレーの欄） -->
+    <div id="blockPalette">
+        <div class="palette-title">streech ブロック</div>
+        
+        <!-- 【動きのブロック】 -->
+        <button class="block green" onclick="addCommand('SPEED_UP')">🚀 スピードを1.7倍にする</button>
+        <button class="block green" onclick="addCommand('SUPER_DASH')">🚀 スーパーダッシュ！</button>
+        <button class="block green" onclick="addCommand('JUMP_HIGHER')">🦘 ジャンプ力を1.5倍にする</button>
+        <button class="block green" onclick="addCommand('TURN_RIGHT')">↩️ 右に少し傾ける</button>
+        <button class="block green" onclick="addCommand('TURN_LEFT')">↪️ 左に少し傾ける</button>
+        
+        <!-- 【見た目のブロック】 -->
+        <button class="block blue" onclick="addCommand('RAINBOW_MODE')">🌈 レインボーモードON</button>
+        <button class="block blue" onclick="addCommand('SHRINK_PLAYER')">🔍 サイズを半分にする</button>
+        <button class="block blue" onclick="addCommand('AFTERIMAGE_ON')">💨 残像エフェクトON</button>
+        <button class="block blue" onclick="addCommand('COSTUME_NEO')">👕 コスチューム：ネオン顔</button>
+        <button class="block blue" onclick="addCommand('COSTUME_GOLD')">👑 コスチューム：ゴールド顔</button>
+
+        <!-- 【制御・調べるのブロック】 -->
+        <button class="block orange" onclick="addCommand('HIT_CHECK')">👾 [調べる] 敵の当たり判定</button>
+        <button class="block orange" onclick="addCommand('FOREVER_LOOP')">🔄 [制御] ずっと繰り返す</button>
+        <button class="block orange" onclick="addCommand('LOOP_5')">🔁 [制御] 5回繰り返す</button>
+    </div>
+
+    <!-- 右側：メイン画面（上部メニューバー付き） -->
+    <div id="mainStageArea">
+        <!-- 上部メニューバー（鮮やかな黄緑バー） -->
+        <div id="topMenuBar">
+            <button class="menuBtn" onclick="saveToFile()">ファイルに保存</button>
+            <button class="menuBtn" onclick="triggerFileLoad()">ファイルで読み込む</button>
+            <input type="file" id="loadFileBtn" onchange="loadFromFile()" accept=".txt" style="display:none;">
+            <button class="menuBtn turbo-btn" id="turboBtn" onclick="toggleTurbo()">⚡ターボモードにする</button>
+        </div>
+
+        <!-- ステージ（キャンバス）と旗・ストップボタン -->
+        <div id="stageWrapper">
+            <div id="scratchControls">
+                <button id="flagBtn" onclick="compileAndRun()">🚩</button>
+                <button id="stopBtn" onclick="stopProgram()">🛑</button>
+            </div>
+            <canvas id="streechCanvas" width="380" height="170"></canvas>
+        </div>
+
+        <!-- 下側：組み立てたブロックが表示されるエリア -->
+        <div id="dropZone">
+            <div id="emptyNotice">(ここに組み立てたブロックが表示されます)</div>
+        </div>
+    </div>
+</div>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
